@@ -1,0 +1,71 @@
+---
+title: "Exam-practice"
+author: "Tamires Amorim and Carol"
+date: "11/22/2020"
+output: github_document
+---
+20 points) Please answer the following; you might find it useful to make a sketch.
+
+For a Normal Distribution that has mean -10 and standard deviation 6.6, what is the area to the right of -19.9 ?
+```{r}
+pnorm(-19.9,-10,6.6,lower.tail = FALSE)
+```
+For a Normal Distribution that has mean 5 and standard deviation 3, what is the area to the right of 10.4 ?
+```{r}
+1-(pnorm(10.4, 5, 3))
+```
+For a Normal Distribution that has mean 3 and standard deviation 6.1, what is the area to the right of -7.98 ?
+```{r}
+1-(pnorm(-7.98, 3, 6.1))
+```
+For a Normal Distribution that has mean 13 and standard deviation 4, what is the area to the left of 16.2 ?
+```{r}
+pnorm(16.2,13,4,lower.tail = TRUE)
+```
+For a Normal Distribution that has mean 2 and standard deviation 8.9, what is the area to the left of 10.01 ?
+```{r}
+pnorm(10.01,2,8.9,lower.tail = TRUE)
+```
+
+For a Normal Distribution that has mean -15 and standard deviation 4.6, what is the area to the left of -22.82 ?
+```{r}
+pnorm(-22.82,-15,4.6,lower.tail = TRUE)
+```
+For a Normal Distribution that has mean -11 and standard deviation 2.8, what is the area in both tails farther from the mean than -5.96 ?
+```{r}
+pnorm(-5.96,-11,2.8,lower.tail = FALSE)*2
+```
+For a Normal Distribution that has mean 8 and standard deviation 9.8, what is the area in both tails farther from the mean than 23.68 ?
+```{r}
+pnorm(23.68,8,9.8,lower.tail = FALSE)*2
+```
+For a Normal Distribution that has mean 13 and standard deviation 4.7 what values leave probability 0.804 in both tails?
+```{r}
+0.804/2
+qnorm(0.402,13,4.7,lower.tail = FALSE)
+qnorm(0.402,13,4.7,lower.tail = TRUE)
+```
+
+
+For a Normal Distribution that has mean 8 and standard deviation 5.2 what values leave probability 0.315 in both tails?
+```{r}
+0.315/2
+qnorm(0.1575,8,5.2,lower.tail = FALSE)
+qnorm(0.1575,8,5.2,lower.tail = TRUE)
+```
+
+A regression coefficient is estimated to be equal to -0.9 with standard error 0.6; there are 4 degrees of freedom. What is the p-value (from the t-statistic) against the null hypothesis of zero?
+
+Calculated on excel:
+-0.9/0.6 = -1.5
+=T.DIST.2T(1.5,4) = 0.208
+
+
+A regression coefficient is estimated to be equal to 1.08 with standard error 3.6; there are 23 degrees of freedom. What is the p-value (from the t-statistic) against the null hypothesis of zero?
+
+Calculated on excel:
+1.08/3.6 = 0.3
+=T.DIST.2T(0.3,23) = 0.7668718
+
+
+
