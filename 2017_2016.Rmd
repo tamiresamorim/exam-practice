@@ -1,0 +1,135 @@
+---
+title: "2017 practice"
+author: "Tamires Amorim and Carol"
+date: "11/23/2020"
+output: github_document
+---
+
+2017 Practice Exam:
+
+### Question 1
+(25 points) Please answer the following; you might find it useful to make a sketch.
+a) For a Normal Distribution that has mean -7 and standard deviation 7.1, what is the area to the right of 6.49?
+```{r}
+pnorm(6.49,-7,7.1,lower.tail = FALSE)
+```
+
+For a Normal Distribution that has mean 11 and standard deviation 4.1, what is the area to the right of 6.08?
+```{r}
+pnorm(6.08,11,4.1,lower.tail = FALSE)
+```
+
+For a Normal Distribution that has mean 5 and standard deviation 3, what is the area to the left of 3.5?
+```{r}
+pnorm(3.5,5,3,lower.tail = TRUE)
+```
+
+For a Normal Distribution that has mean -7 and standard deviation 3.8, what is the area to the left of 1.74?
+```{r}
+pnorm(1.74,-7,3.8,lower.tail = TRUE)
+```
+
+For a Normal Distribution that has mean -10 and standard deviation 5.1, what is the area to the left of -18.67?
+```{r}
+pnorm(-18.67,-10,5.1,lower.tail = TRUE)
+```
+
+For a Normal Distribution that has mean -10 and standard deviation 3.4, what is the area in both tails farther from the mean than -12.04?
+```{r}
+pnorm(-12.04,-10,3.4,lower.tail = TRUE)*2
+```
+
+For a Normal Distribution that has mean 8 and standard deviation 8.6, what is the area in both tails farther from the mean than -5.76?
+```{r}
+pnorm(-5.76,8,8.6,lower.tail = TRUE)*2
+```
+
+For a Normal Distribution that has mean 12 and standard deviation 2.2 , what is the area in both tails farther from the mean than 10.02 ?
+Previous methods gave weird return, so I did on the online calculator getting z= -0.9, and the area in both tails farther from the mean = 0.36812
+
+For a Normal Distribution that has mean -5 and standard deviation 1.3 what values leave probability 0.15 in both tails?
+```{r}
+0.15/2
+qnorm(0.075,-5,1.3,lower.tail = FALSE)
+qnorm(0.075,-5,1.3,lower.tail = TRUE)
+```
+
+For a Normal Distribution that has mean 11 and standard deviation 7.6 what values leave probability 0.782 in both tails?
+```{r}
+0.782/2
+qnorm(0.391,11,7.6,lower.tail = FALSE)
+qnorm(0.391,11,7.6,lower.tail = TRUE)
+```
+
+For a Normal Distribution that has mean 9 and standard deviation 3.1 what values leave probability 0.077 in both tails?
+```{r}
+0.782/2
+qnorm(0.391,11,7.6,lower.tail = FALSE)
+qnorm(0.391,11,7.6,lower.tail = TRUE)
+```
+
+A regression coefficient is estimated to be equal to 6.09 with standard error 8.7; there are 40 degrees of freedom. What is the p-value (from the t-statistic) against the null hypothesis of zero?
+
+Calculated on excel:
+6.09/8.7 = 0.7
+=T.DIST.2T(0.7,40) = 0.487979
+
+A regression coefficient is estimated to be equal to -20.16 with standard error 8.4; there are 34 degrees of freedom. What is the p-value (from the t-statistic) against the null hypothesis of zero?
+
+Calculated on excel:
+-20.16/8.4 = -2.4
+=T.DIST.2T(-2.4,34) = 0.022017747
+
+
+A regression coefficient is estimated to be equal to 8.8 with standard error 4.4; there are 5 degrees of freedom. What is the p-value (from the t-statistic) against the null hypothesis of zero?
+
+Calculated on excel:
+8.8/4.4 = 2
+=T.DIST.2T(2,5) = 0.101939479
+
+A regression coefficient is estimated to be equal to -17.64 with standard error 9.8; there are 11 degrees of freedom. What is the p-value (from the t-statistic) against the null hypothesis of zero?
+
+Calculated on excel:
+-17.64/9.8 = -1.8 
+=T.DIST.2T(1.8,11) = 0.099315893
+
+### Question 5:
+Explain what these coefficients mean. Should we include education levels of the head as well as the spouse? 
+
+The correlation coefficient measures the strengh of the relationship between the X and Y variables, in this particular situation if the age difference between the couple is large given the education attainments, the head of the house is female, and gender role of spouse.
+
+Calculate the estimated probability that a spouse with some college, who is male and the head of household is female, has a large age difference.
+Here the probability is 0.2956 or 29% chance that there is a relation between the large age difference and the spouse with some college who is male and head of the household is female. 
+
+What is the change in estimated probability if the spouse is female and head of household is male? 
+Here the probability is 0.3160 or 32% chance that there is a large age difference when we switch roles, in this specific case there is a 3% increase.
+
+What is the change in estimated probability if, instead, the spouse gets an advanced degree?
+If the spouse gets an advanced degree and is female and the head of the household is male, there is a negative relationship with a decrease of -0.3348 or 34% less chances of a big age difference when the spouse is female and have an advanced college degree. 
+
+### Question 2: 2016 exam
+
+```{r}
+load("~/GitHub/exam-practice/ATUS_data/ATUS_2003_2013_a.RData")
+```
+
+
+```{r}
+use_varb <- (dat2$EMPSTAT == 'Employed - at work')
+dat_use <- subset(dat2,use_varb)
+is.na(dat_use$EARNWEEK) <- which((dat_use$EARNWEEK == 9999999))
+dat_use$EARNWEEK <- dat_use$EARNWEEK/100
+dat_use$lots_social <- (dat_use$ACT_SOCIAL > 180)
+attach(dat_use)
+```
+
+```{r}
+fit <- lm(lots_social ~  EDUC, data = dat_use)
+summary(fit)
+require(stargazer)
+stargazer(fit, type = "text")
+par(mfrow=c(2,2))
+plot(fit,col="grey",pch=16,cex=1,lwd=1,lty=2)
+```
+
+When trying to restrict the data to only higher educational attainments the size of the data to be analyzed in the regression did not match, the way arounf it, was to run the regression with all the educational levels, as observed those coefficients are not statistically significant, given that most likely because students do not have time to have leisure. Although, when subsetting the data we chose working people, which explains why most of the lower grade are not significant.
